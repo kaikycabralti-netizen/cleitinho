@@ -2,12 +2,12 @@ class Banco:
     def __init__(self):
         self._contas = []
     
-    def abrir_conta_user(self):
-        titular = input("Digite o nome do titular: ")
-        conta_type_input = input("Escolha o tipo de conta (1- Corrente, 2- Poupança): ")
-        saldo_inicial = float(input("Digite o saldo inicial: "))
+    def cadastro_user(self):
+        cliente = input("Digite o nome do cliente: ")
+        num = input("Insira o número do cliente: ")
+        email = float(input("Digite o e-mail: "))
 
-        if conta_type_input == "1":
+        if  == "1":
             limite_cc = float(input("Digite o limite da conta corrente: "))
             nova_conta = ContaCorrente(titular, saldo_inicial, limite_cc)
             self._contas.append(nova_conta)
