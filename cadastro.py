@@ -1,8 +1,6 @@
 clientes = []
 
 def cad_cliente (ID,nome,tel,email):
-    
-    
     novo_cliente = {
         "nome": nome.strip().title(),
         "tel": tel.strip(),
