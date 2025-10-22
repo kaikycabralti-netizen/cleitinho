@@ -1,47 +1,26 @@
-class Banco:
-    def __init__(self):
-        self._contas = []
+clientes = []
+
+def cad_cliente (ID,nome,tel,email):
+    novo_cliente = {
+        "nome": nome.strip().title(),
+        "tel": tel.strip(),
+        "email": email.strip(),
+        "ID": id.strip()
+    }
     
-    def cadastro_user(self):
-        cliente = input("Digite o nome do cliente: ")
-        num = input("Insira o número do cliente: ")
-        email = float(input("Digite o e-mail: "))
+    clientes.append [(novo_cliente): 
+        print (f"\nSeu cliente foi CADASTRADO com sucesso, Cleitinho!" )
+                     ]
 
-        if  == "1":
-            limite_cc = float(input("Digite o limite da conta corrente: "))
-            nova_conta = ContaCorrente(titular, saldo_inicial, limite_cc)
-            self._contas.append(nova_conta)
-            print(f"Conta para {titular} criada com sucesso!")
-            return nova_conta
-        elif conta_type_input == "2":
-            nova_conta = ContaPoupanca(titular, saldo_inicial)
-            self._contas.append(nova_conta)
-            print(f"Conta para {titular} criada com sucesso!")
-            return nova_conta
-        else:
-            print("Tipo de conta inválido. Nenhuma conta foi criada.")
-            return None
-
-    def listar_contas(self):
-        print("\n--- Listagem de Contas ---")
-        if not self._contas:
-            print("Nenhuma conta cadastrada.")
-        else:
-            for i, conta in enumerate(self._contas):
-                print(f"{i + 1}. Titular: {conta.titular}, Saldo: R$ {conta.pegar_saldo():.2f}")
-        print("--------------------------\n")
-        
-    def transferir(self, conta_origem, conta_destino, valor):
-        try:
-            print(f"\nTentando transferir R$ {valor:.2f} de {conta_origem.titular} para {conta_destino.titular}...")
-            conta_origem.sacar(valor)
-            conta_destino.depositar(valor)
-            print("Transferência realizada com sucesso!")
-        except (ValueError, RuntimeError) as e:
-            print(f"Erro na transferência: {e}")
-
-meu_banco = Banco()
-
+def list_cliente ():
+    
+    if not clientes:
+        print (f"\nTem nenhum cliente, Cleitinho, fique de boa")
+        return False
+    else:
+        print (f"\n------- LISTA DE CLIENTES -------")
+        for id, clientes in enumerate(clientes):
+            print (f"ID: {ID}")
 while True:
     print("\n--- Menu Principal ---")
     print("1. Abrir nova conta")
