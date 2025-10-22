@@ -1,13 +1,7 @@
-class Cliente:
-    def __init__(self, nome, telefone, email):
-        self.nome = nome
-        self.telefone = telefone
-        self.email = email
-
 class Servico:
     def __init__(self, id_servico, cliente, descricao, valor, status="Na bancada"):
         self.id_servico = id_servico
-        self.cliente = cliente  # objeto Cliente
+        self.cliente = cliente  
         self.descricao = descricao
         self.valor = valor
         self.status = status
@@ -66,7 +60,6 @@ def menu_servicos(modulo_servicos, clientes):
             print("\n--- Registrar novo serviço ---")
             nome_cliente = input("Nome do cliente: ").strip()
 
-            # Buscar cliente
             cliente_encontrado = None
             for c in clientes:
                 if c.nome.lower() == nome_cliente.lower():
@@ -100,17 +93,3 @@ def menu_servicos(modulo_servicos, clientes):
             break
         else:
             print("❌ Opção inválida. Tente novamente.")
-
-
-# ===============================
-# EXEMPLO DE USO / TESTE LOCAL
-# ===============================
-if __name__ == "__main__":
-    # Clientes fictícios (no projeto real vêm do módulo 1)
-    clientes = [
-        Cliente("João", "99999-9999", "joao@email.com"),
-        Cliente("Maria", "98888-8888", "maria@email.com")
-    ]
-
-    modulo_servicos = ModuloServicos()
-    menu_servicos(modulo_servicos, clientes)

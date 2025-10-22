@@ -1,4 +1,3 @@
-
 class Peca:
     def __init__(self, id_peca, nome, quantidade, preco_custo):
         self.id_peca = id_peca
