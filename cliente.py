@@ -1,9 +1,19 @@
+import re
+
+def validacao_email (email):
+    padrao = r"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
+    return re.fullmatch(padrao, email) is not None
 class Cliente:
     def __init__(self, id_cliente, nome, telefone, email):
         self.id_cliente = id_cliente
         self.nome = nome.strip().title()
         self.telefone = telefone.strip()
-        self.email = email.strip()
+        #validação e-mail
+        email_ok = email.strip()
+        if not validacao_email(email_ok):
+            print(f"❌ Erro ao cadastrar: Email '{email}' é inválido. O cadastro do foi ignorado.")
+        else:
+            self.email = email_ok
 
     def atualizar_dados(self, nome=None, telefone=None, email=None):
         if nome:
@@ -11,9 +21,21 @@ class Cliente:
         if telefone:
             self.telefone = telefone.strip()
         if email:
-            self.email = email.strip()
+            email_ok = email.strip()
+            if not validacao_email(email_ok):
+                print(f"❌ Erro ao atualizar: Email '{email}' é inválido. A atualização do email foi ignorada.")
+            else:
+                self.email = email_ok
+                email_att = True
+                
+        if nome or telefone or email_att:
+            
+            print(f"✅ Dados do cliente '{self.nome}' atualizados com sucesso!")
+            
+        elif not email and not nome and not telefone:
+            
+            print(f"⚠️ Nenhuma informação fornecida para atualização do cliente '{self.nome}'.")                
         print(f"✅ Dados do cliente '{self.nome}' atualizados com sucesso!")
-
 
 class ModuloClientes:
     def __init__(self):
@@ -21,10 +43,13 @@ class ModuloClientes:
         self.proximo_id = 1
 
     def cadastrar_cliente(self, nome, telefone, email):
-        cliente = Cliente(self.proximo_id, nome, telefone, email)
-        self.clientes.append(cliente)
-        self.proximo_id += 1
-        print(f"\n✅ Cliente cadastrado com sucesso! ID: {cliente.id_cliente}\n")
+        try:
+            cliente = Cliente(self.proximo_id, nome, telefone, email)
+            self.clientes.append(cliente)
+            self.proximo_id += 1
+            print(f"\n✅ Cliente cadastrado com sucesso! ID: {cliente.id_cliente}\n")
+        except ValueError as e:
+            print(f"\n❌ Erro no cadastro: {e}\n")
 
     def listar_clientes(self):
         if not self.clientes:
@@ -49,6 +74,8 @@ class ModuloClientes:
                 print(f"\n❌ Cliente '{c.nome}' removido com sucesso!\n")
                 return
         print("❌ Cliente não encontrado.")
+    
+
 
 
 def menu_clientes(modulo_clientes):

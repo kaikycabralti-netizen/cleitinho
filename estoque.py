@@ -1,13 +1,39 @@
 class Peca:
     def __init__(self, id_peca, nome, quantidade, preco_custo):
         self.id_peca = id_peca
-        self.nome = nome
-        self.quantidade = quantidade
-        self.preco_custo = preco_custo
+        self.nome = nome.strip().title()
+        self._quantidade = 0
+        self._preco_custo = 0.0
 
+    @property
+    def quantidade(self):
+        return self._quantidade
+    
+    @quantidade.setter
+    def quantidade(self, quantidade_new):
+        if not isinstance(quantidade_new, int) or quantidade_new < 0:
+            raise ValueError("A quantidade deve ser um número inteiro e positivo :().")
+        self._quantidade = quantidade_new
+    
+    @property
+    def preco_custo(self):
+        return self._preco_custo
+    
+    @preco_custo.setter
+    def preco_custo(self, preco_new):
+        if not isinstance (preco_new, (int,float) or preco_new < 0):
+            raise ValueError ("❌ Valor abaixo de zero ou não é número")
+        self._preco_custo = float(preco_new)
+
+    
     def dar_baixa(self, quantidade_usada):
-        if quantidade_usada <= self.quantidade:
-            self.quantidade -= quantidade_usada
+        
+        #usando variável local para segurança maior de código e mais flexibilidade
+        quantidade_nova = self.quantidade - quantidade_usada
+        
+        if quantidade_nova >= 0:
+            #colocando a nova quantidade para ser a real
+            self.quantidade = quantidade_nova
             print(f"✅ Baixa realizada. Novo estoque: {self.quantidade} unidades.")
         else:
             print("❌ Quantidade insuficiente em estoque!")
@@ -19,11 +45,14 @@ class ModuloEstoque:
         self.proximo_id = 1
 
     def cadastrar_peca(self, nome, quantidade, preco_custo):
-        peca = Peca(self.proximo_id, nome, quantidade, preco_custo)
-        self.pecas.append(peca)
-        self.proximo_id += 1
-        print(f"\n✅ Peça '{nome}' cadastrada com sucesso! ID: {peca.id_peca}\n")
-
+        try:
+            peca = Peca(self.proximo_id, nome, quantidade, preco_custo)
+            self.pecas.append(peca)
+            self.proximo_id += 1
+            print(f"\n✅ Peça '{nome}' cadastrada com sucesso! ID: {peca.id_peca}\n")
+        except ValueError as e:
+            print(f"\n❌ Erro ao cadastrar peça: {e}\n")
+            
     def listar_pecas(self):
         if not self.pecas:
             print("\n⚠️ Nenhuma peça cadastrada.\n")
@@ -68,12 +97,14 @@ def menu_estoque(modulo_estoque):
             modulo_estoque.listar_pecas()
 
         elif opcao == "3":
+            
             try:
                 id_peca = int(input("ID da peça: "))
                 quantidade_usada = int(input("Quantidade usada: "))
                 modulo_estoque.dar_baixa(id_peca, quantidade_usada)
             except ValueError:
                 print("❌ Digite valores numéricos válidos.")
+                
             
         elif opcao == "0":
             print("Voltando ao menu principal...\n")
