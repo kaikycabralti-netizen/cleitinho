@@ -1,6 +1,6 @@
 from estoque import ModuloEstoque, menu_estoque
 from servico import ModuloServicos, menu_servicos
-from cliente import ModuloClientes, menu_clientes, Cliente
+from cliente import ModuloClientes, menu_clientes
 from relatorio import menu_relatorio
 
 def menu():
