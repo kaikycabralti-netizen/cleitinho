@@ -1,6 +1,7 @@
 from estoque import ModuloEstoque, menu_estoque
 from servico import ModuloServicos, menu_servicos
 from cliente import ModuloClientes, menu_clientes, Cliente
+from relatorio import menu_relatorio
 
 def menu():
     modulo_clientes = ModuloClientes()
@@ -30,6 +31,9 @@ def menu():
 
         elif opcao == "3":
             menu_estoque(modulo_estoque)
+
+        elif opcao == "4":
+            menu_relatorio(modulo_clientes.clientes, modulo_servicos.servicos)
 
         elif opcao == "0":
             print("Encerrando o sistema... 👋")
